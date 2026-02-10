@@ -1,0 +1,44 @@
+name: pits_app
+description: "A new Flutter project."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.8
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_localizations:
+    sdk: flutter
+  
+  http: ^1.5.0                    # actualizado desde 0.12.2
+  google_sign_in: ^7.2.0          # actualizado desde 5.0.3
+  shared_preferences: ^2.5.4      # actualizado desde 2.0.6
+  font_awesome_flutter: ^10.12.0  # actualizado desde 9.0.0
+  url_launcher: ^6.3.2            # actualizado desde 5.7.10
+
+  flutter_lints: ^6.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/img/
+    - assets/logos/
+    - assets/gifs/
+
+  fonts:
+    - family: Gothic
+      fonts:
+        - asset: assets/fonts/Gothic.TTF
