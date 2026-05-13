@@ -9,7 +9,7 @@ import 'package:pits_app/src/shared_prefs/preferencias_usuario.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final prefs = new PreferenciasUsuario();
+  final prefs = PreferenciasUsuario();
   await prefs.initPref();
   prefs.url = 'https://pitsmotors.com/a2067bba65bb2b45448c1f096f6988fd/api';
 
