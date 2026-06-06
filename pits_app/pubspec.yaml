@@ -1,8 +1,6 @@
 name: pits_app
 description: "A new Flutter project."
-
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
+publish_to: 'none'
 version: 1.0.0+1
 
 environment:
@@ -11,34 +9,72 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   cupertino_icons: ^1.0.8
+
+  http: ^1.5.0
+  google_sign_in: ^6.2.1
+  shared_preferences: ^2.5.4
+  font_awesome_flutter: ^10.12.0
+  url_launcher: ^6.3.2
+  flutter_localizations:
+    sdk: flutter
+
+  flutter_launcher_icons: ^0.14.3
+  flutter_native_splash: ^2.4.6
+  persistent_bottom_nav_bar_v2: ^5.0.2
+  cached_network_image: ^3.4.1
+  flutter_rating_bar: ^4.0.1
+  dio: ^5.8.0
+  image_picker: ^1.1.2
+  permission_handler: ^11.4.0
+  google_maps_flutter: ^2.10.0
+  geolocator: ^13.0.2
+  custom_info_window: ^1.0.1
+  clippy_flutter: ^2.0.0-nullsafety.1
+  vector_math: ^2.1.4
+  sqflite: ^2.4.2
+  path: ^1.9.1
+  path_provider: ^2.1.5
+  animate_do: ^3.3.4
+  webview_flutter: ^4.10.0
+  crypto: ^3.0.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  flutter_localizations:
-    sdk: flutter
-  
-  http: ^1.5.0                    # actualizado desde 0.12.2
-  google_sign_in: ^7.2.0          # actualizado desde 5.0.3
-  shared_preferences: ^2.5.4      # actualizado desde 2.0.6
-  font_awesome_flutter: ^10.12.0  # actualizado desde 9.0.0
-  url_launcher: ^6.3.2            # actualizado desde 5.7.10
-
   flutter_lints: ^6.0.0
 
 flutter:
-
   uses-material-design: true
-
   assets:
     - assets/img/
     - assets/logos/
     - assets/gifs/
-
   fonts:
     - family: Gothic
       fonts:
         - asset: assets/fonts/Gothic.TTF
+          weight: 700
+
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/logos/LogoApp.JPG"
+  # Si quieres fondo de color en Android (ícono adaptativo):
+  adaptive_icon_background: "#FFFFFF"   # tu color
+  adaptive_icon_foreground: "assets/logos/LogoApp.JPG"
+
+
+flutter_native_splash:
+  color: "#00247d"                        # color de fondo del splash
+  image: assets/logos/splashPITSNew.png            # tu logo centrado
+  color_dark: "#00247d"                   # fondo en modo oscuro (opcional)
+  image_dark: assets/logos/splashPITSNew.png       # logo en modo oscuro (opcional)
+  
+  android_12:
+    color: "#00247d"
+    image: assets/logos/splashPITSNew.png
+    icon_background_color: "#00247d"
+  
+  fullscreen: true                        # ocupa toda la pantalla

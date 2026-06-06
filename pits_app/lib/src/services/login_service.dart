@@ -12,7 +12,10 @@ class LoginService {
   final headers = {"Content-Type": "application/json"};
 
   Uri _buildUri(String path) {
-    return Uri.parse(prefs.url).replace(path: path);
+    final base = prefs.url.endsWith('/')
+        ? prefs.url.substring(0, prefs.url.length - 1)
+        : prefs.url;
+    return Uri.parse('$base$path');
   }
 
   Future<CustomerModel?> login(String email, String password) async {

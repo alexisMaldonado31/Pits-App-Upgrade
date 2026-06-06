@@ -43,8 +43,6 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('REGÍSTRATE'),
-        centerTitle: true,
-        backgroundColor: config.secondary,
       ),
       body: Container(
         height:
@@ -164,11 +162,11 @@ class _RegisterPageState extends State<RegisterPage> {
               overlayColor: MaterialStateColor.resolveWith(getColor),
             ),
             onPressed: () async {
-              final uri = Uri.parse(
-                'http://bananastech.com/terminosCondiciones.pdf',
-              );
-              if (await canLaunchUrl(uri)) {
-                await launchUrl(uri);
+              final uri = Uri.parse('https://pitsmotors.com/terminosCondiciones.pdf');
+              try {
+                await launchUrl(uri, mode: LaunchMode.externalApplication);
+              } catch (e) {
+                await launchUrl(uri, mode: LaunchMode.platformDefault);
               }
             },
             child: Text(
@@ -204,7 +202,7 @@ class _RegisterPageState extends State<RegisterPage> {
       controller: _nombresController,
       margin: EdgeInsets.symmetric(
         horizontal: sizeBox / 4,
-        vertical: sizeBox / 4,
+        vertical: sizeBox / 6,
       ),
       hintText: 'Nombres',
       keyboardType: TextInputType.text,
@@ -228,7 +226,7 @@ class _RegisterPageState extends State<RegisterPage> {
       controller: _apellidosController,
       margin: EdgeInsets.symmetric(
         horizontal: sizeBox / 4,
-        vertical: sizeBox / 4,
+        vertical: sizeBox / 6,
       ),
       hintText: 'Apellidos',
       keyboardType: TextInputType.text,
@@ -252,7 +250,7 @@ class _RegisterPageState extends State<RegisterPage> {
       controller: _identificacionController,
       margin: EdgeInsets.symmetric(
         horizontal: sizeBox / 4,
-        vertical: sizeBox / 4,
+        vertical: sizeBox / 6,
       ),
       hintText: 'Identificación',
       keyboardType: TextInputType.text,
@@ -275,7 +273,7 @@ class _RegisterPageState extends State<RegisterPage> {
       controller: _emailController,
       margin: EdgeInsets.symmetric(
         horizontal: sizeBox / 4,
-        vertical: sizeBox / 4,
+        vertical: sizeBox / 6,
       ),
       hintText: 'Email',
       keyboardType: TextInputType.emailAddress,
@@ -299,7 +297,7 @@ class _RegisterPageState extends State<RegisterPage> {
       controller: _passwordController,
       margin: EdgeInsets.symmetric(
         horizontal: sizeBox / 4,
-        vertical: sizeBox / 4,
+        vertical: sizeBox / 6,
       ),
       hintText: 'Contraseña',
       keyboardType: TextInputType.text,
@@ -367,14 +365,13 @@ class _RegisterPageState extends State<RegisterPage> {
     if (!_formKey.currentState!.validate()) return;
 
     if (!_check) {
-      setState(() {
-        _checkConfirm = !_checkConfirm;
-      });
+      setState(() => _checkConfirm = false);
+      return;
     }
 
     _formKey.currentState!.save();
 
-    var customerCreation = CustomerCreateModel(
+    final customerCreation = CustomerCreateModel(
       firstname: _nombresController.text,
       lastname: _apellidosController.text,
       email: _emailController.text,
@@ -382,17 +379,19 @@ class _RegisterPageState extends State<RegisterPage> {
       password: _passwordController.text,
     );
 
-    var res = await customerService.postRegisterCustomer(customerCreation);
+    try {
+      final res = await customerService.postRegisterCustomer(customerCreation);
 
-    if (res!.id != null) {
-      mostrarSnackbar('Registro éxitoso', Colors.green, context);
-      Navigator.popAndPushNamed(context, 'login');
-    } else {
-      mostrarSnackbar(
-        res.firstname == '' ? 'No se pudo registrar el usuario' : res.firstname,
-        Colors.redAccent,
-        context,
-      );
+      if (res.id != null) {
+        mostrarSnackbar('Registro éxitoso', Colors.green, context);
+        Navigator.popAndPushNamed(context, 'login');
+      } else {
+        mostrarSnackbar('No se pudo registrar el usuario', Colors.redAccent, context);
+      }
+
+    } catch (e) {
+      // Muestra el mensaje de la excepción lanzada en el servicio
+      mostrarSnackbar(e.toString().replaceAll('Exception: ', ''), Colors.redAccent, context);
     }
   }
 }

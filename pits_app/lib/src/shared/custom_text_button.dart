@@ -47,6 +47,7 @@ class CustomTextButton extends StatelessWidget {
             fontWeight: FontWeight.bold,
             fontSize: screenSize.height * 0.02,
             textDecoration: TextDecoration.underline,
+            decorationColor: textColor,  // 👈 mismo color que el texto
           ),
         ),
       ),

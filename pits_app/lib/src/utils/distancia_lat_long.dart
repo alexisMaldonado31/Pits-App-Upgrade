@@ -3,33 +3,22 @@ import 'dart:math';
 
 double radioTierraKm = 6371.0;
 
-String distanciaKm(
-  double latitud,
-  double longitud,
-  double latitudOrigen,
-  double longitudOrigen,
-) {
-  double distanceKm;
-  double dlat, dlng;
-  double a;
-  double c;
-
-  //Convertimos de grados a radianes
+String distanciaKm(double latitud, double longitud, double latitudOrigen,
+    double longitudOrigen) {
   latitud = math.radians(latitud);
   latitudOrigen = math.radians(latitudOrigen);
   longitud = math.radians(longitud);
   longitudOrigen = math.radians(longitudOrigen);
 
-  // Fórmula del semiverseno
-  dlat = latitud - latitudOrigen;
-  dlng = longitud - longitudOrigen;
+  double dlat = latitud - latitudOrigen;
+  double dlng = longitud - longitudOrigen;
 
-  a =
-      sin(dlat / 2) * sin(dlat / 2) +
-      cos(latitud) * cos(latitudOrigen) * (sin(dlng / 2)) * (sin(dlng / 2));
-  c = 2 * atan2(sqrt(a), sqrt(1 - a));
-
-  distanceKm = radioTierraKm * c;
-
+  double a = sin(dlat / 2) * sin(dlat / 2) +
+      cos(latitud) *
+          cos(latitudOrigen) *
+          (sin(dlng / 2)) *
+          (sin(dlng / 2));
+  double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+  double distanceKm = radioTierraKm * c;
   return distanceKm.toStringAsFixed(2);
 }

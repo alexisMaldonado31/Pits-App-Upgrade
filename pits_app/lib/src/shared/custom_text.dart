@@ -7,6 +7,8 @@ class CustomText extends StatelessWidget {
   final Color colorText;
   final TextAlign textAlign;
   final TextDecoration textDecoration;
+  final Color? decorationColor;  // 👈 falta esta línea
+
 
   const CustomText({
     super.key,
@@ -16,6 +18,7 @@ class CustomText extends StatelessWidget {
     this.colorText = Colors.black,
     this.textAlign = TextAlign.left,
     this.textDecoration = TextDecoration.none,
+    this.decorationColor,  // 👈
   });
 
   @override
@@ -28,9 +31,10 @@ class CustomText extends StatelessWidget {
         fontFamily: 'Gothic',
         color: colorText,
         decoration: this.textDecoration,
+        decorationColor: decorationColor ?? colorText,  // 👈
       ),
       textAlign: textAlign,
-      textScaleFactor: 1,
+      textScaler: TextScaler.noScaling, 
     );
   }
 }

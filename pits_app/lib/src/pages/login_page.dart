@@ -10,6 +10,9 @@ import 'package:pits_app/src/shared/custom_text_field.dart';
 import 'package:pits_app/src/shared/logo.dart';
 import 'package:pits_app/src/shared_prefs/preferencias_usuario.dart';
 import 'package:pits_app/src/utils/validators.dart';
+import 'package:pits_app/src/pages/forgot_password_page.dart';
+import 'package:pits_app/src/shared/button_login_google.dart';
+import 'dart:convert';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -41,8 +44,6 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('LOG-IN'),
-        centerTitle: true,
-        backgroundColor: config.secondary,
       ),
       body: IgnorePointer(
         ignoring: loading,
@@ -51,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
               screenSize.height -
               kToolbarHeight -
               MediaQuery.of(context).padding.top,
-          padding: EdgeInsets.symmetric(horizontal: sizeBox / 4),
+          padding: EdgeInsets.symmetric(horizontal: sizeBox / 6),
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/img/background.png"),
@@ -98,9 +99,10 @@ class _LoginPageState extends State<LoginPage> {
                       sizeBox,
                       sizeFont,
                     ),
+                    SizedBox(height: screenSize.height * 0.01),
+                    ButtonLoginGoogle(),
+                    SizedBox(height: screenSize.height * 0.02),
                     _crearTextButtonOlvideContrasenia(Colors.white, screenSize),
-                    // CustomFacebookButton(),
-                    // ButtonLoginGoogle(),
                   ],
                 ),
               ),
@@ -170,35 +172,37 @@ class _LoginPageState extends State<LoginPage> {
               FocusScope.of(context).requestFocus(FocusNode());
               if (!_formKey.currentState!.validate()) return;
 
-              setState(() {
-                loading = true;
-              });
+              setState(() => loading = true);
 
-              var res = await loginService.login(
-                _emailController.text,
-                _passwordController.text,
-              );
+              try {
+                final res = await loginService.login(
+                  _emailController.text,
+                  _passwordController.text,
+                );
 
-              if (res!.id != null) {
-                prefs.customerInfo = customerModelToJson(res);
-                var parameters = await loginService.getParameters();
-                prefs.whatsapp = parameters!.whatsapp;
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  'home',
-                  (route) => false,
-                );
-              } else {
-                mostrarSnackbar(
-                  'Error al iniciar sesión',
-                  Colors.redAccent,
-                  context,
-                );
+                if (res == null) {
+                  mostrarSnackbar('Error al iniciar sesión', Colors.redAccent, context);
+                  setState(() => loading = false);
+                  return;
+                }
+
+                if (res.id != null) {
+                  prefs.customerInfo = jsonEncode(res.toJson());
+                  final parameters = await loginService.getParameters();
+                  prefs.whatsapp = parameters?.whatsapp ?? '';
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    'home',
+                    (route) => false,
+                  );
+                } else {
+                  mostrarSnackbar('Error al iniciar sesión', Colors.redAccent, context);
+                  setState(() => loading = false);
+                }
+              } catch (e) {
+                mostrarSnackbar('Error al iniciar sesión', Colors.redAccent, context);
+                setState(() => loading = false);
               }
-
-              setState(() {
-                loading = false;
-              });
             },
           );
   }
@@ -209,10 +213,10 @@ class _LoginPageState extends State<LoginPage> {
       padding: EdgeInsets.zero,
       textColor: color,
       onTap: () {
-        // Navigator.push(
-        //   context,
-        //   new MaterialPageRoute(builder: (context) => ForgotPasswordPage()),
-        // );
+        Navigator.push(
+          context,
+          new MaterialPageRoute(builder: (context) => ForgotPasswordPage()),
+        );
       },
     );
   }

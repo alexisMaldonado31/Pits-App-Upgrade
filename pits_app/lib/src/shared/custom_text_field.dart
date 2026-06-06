@@ -111,69 +111,87 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 const SizedBox(height: 5),
                 Container(
                   height: widget.sizeBox,
-                  padding: EdgeInsets.only(
-                    left: widget.prefixIcon == null ? 15.0 : 0,
-                    right: 15.0,
-                  ),
+                  clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
                     color: widget.colorFondo,
                     border: isEmpty
                         ? null
                         : isValidate
-                        ? null
-                        : Border.all(color: Colors.red),
+                            ? null
+                            : Border.all(color: Colors.red),
                   ),
-                  child: TextFormField(
-                    expands: false,
-                    controller: widget.controller,
-                    keyboardType: widget.keyboardType,
-                    textAlign: TextAlign.left,
-                    obscureText: _obscureText,
-                    readOnly: widget.readonly,
-                    maxLines: widget.maxLines,
-                    style: TextStyle(
-                      fontSize: widget.sizeFont,
-                      color: widget.colorTexto,
-                      fontFamily: 'Gothic',
-                    ),
-                    decoration: InputDecoration(
-                      errorStyle: const TextStyle(height: 0),
-                      hintText: widget.hintText,
-                      hintStyle: TextStyle(
-                        fontSize: widget.sizeFont,
-                        fontFamily: 'Gothic',
-                        color: widget.colorHintText,
-                      ),
-                      prefixIcon: widget.prefixIcon == null
-                          ? null
-                          : Icon(widget.prefixIcon, color: widget.colorTexto),
-                      suffixIcon: widget.obscureText
-                          ? InkWell(
-                              onTap: _showPasswordTemporarily,
-                              child: const Icon(
-                                FontAwesomeIcons.eye,
-                                color: Colors.white,
+                  child: Row(
+                    children: [
+                      // 👈 ícono manual, no parte del InputDecoration
+                      if (widget.prefixIcon != null)
+                        SizedBox(
+                          width: widget.sizeBox,
+                          child: Icon(
+                            widget.prefixIcon,
+                            color: widget.colorTexto,
+                            size: widget.sizeFont * 1.2,
+                          ),
+                        ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            left: widget.prefixIcon == null ? 15.0 : 0,
+                            right: 15.0,
+                          ),
+                          child: TextFormField(
+                            expands: false,
+                            controller: widget.controller,
+                            keyboardType: widget.keyboardType,
+                            textAlign: TextAlign.left,
+                            obscureText: _obscureText,
+                            readOnly: widget.readonly,
+                            maxLines: widget.maxLines,
+                            style: TextStyle(
+                              fontSize: widget.sizeFont,
+                              color: widget.colorTexto,
+                              fontFamily: 'Gothic',
+                              fontWeight: FontWeight.bold,
+                            ),
+                            decoration: InputDecoration(
+                              errorStyle: const TextStyle(height: 0, fontSize: 0),
+                              isDense: true,
+                              contentPadding: EdgeInsets.zero,
+                              hintText: widget.hintText,
+                              hintStyle: TextStyle(
+                                fontSize: widget.sizeFont,
+                                fontFamily: 'Gothic',
+                                color: widget.colorHintText,
+                                fontWeight: FontWeight.bold,
                               ),
-                            )
-                          : null,
-                      border: InputBorder.none,
-                    ),
-                    onTap: widget.onTap,
-                    onSaved: widget.onSaved,
-                    onFieldSubmitted: widget.onFieldSubmitted,
-                    validator: (String? value) {
-                      if (widget.validator == null) return null;
-
-                      final v = value ?? '';
-                      final ok = widget.validator!(v);
-
-                      setState(() {
-                        isEmpty = false;
-                        isValidate = ok;
-                      });
-
-                      return ok ? null : '';
-                    },
+                              // 👈 sin prefixIcon aquí
+                              suffix: widget.obscureText
+                                  ? InkWell(
+                                      onTap: _showPasswordTemporarily,
+                                      child: const Icon(
+                                        FontAwesomeIcons.eye,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  : null,
+                              border: InputBorder.none,
+                            ),
+                            onTap: widget.onTap,
+                            onSaved: widget.onSaved,
+                            onFieldSubmitted: widget.onFieldSubmitted,
+                            validator: (String? value) {
+                              if (widget.validator == null) return null;
+                              final v = value ?? '';
+                              final ok = widget.validator!(v);
+                              setState(() {
+                                isEmpty = false;
+                                isValidate = ok;
+                              });
+                              return ok ? null : '';
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

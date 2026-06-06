@@ -10,58 +10,62 @@ class CustomerModel {
     this.id,
     required this.firstname,
     required this.lastname,
-    required this.document,
+    this.document,
     required this.email,
-    required this.mobile,
-    required this.city,
-    required this.address,
-    required this.facebookUser,
-    required this.provinceId,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.deletedAt,
-    required this.establishmentId,
-    required this.googleUser,
-    required this.kilometersRadio,
-    required this.ordersByReview,
+    this.mobile,       // ✅ nullable
+    this.city,         // ✅ nullable
+    this.address,      // ✅ nullable
+    this.facebookUser,
+    this.provinceId,   // ✅ nullable
+    this.createdAt,    // ✅ nullable
+    this.updatedAt,    // ✅ nullable
+    this.deletedAt,
+    this.establishmentId,
+    this.googleUser,
+    this.kilometersRadio,
+    this.ordersByReview, // ✅ nullable
   });
 
   int? id;
   String firstname;
   String lastname;
-  String document;
+  String? document;
   String email;
-  String mobile;
-  String city;
-  String address;
+  String? mobile;
+  String? city;
+  String? address;
   dynamic facebookUser;
-  int provinceId;
-  DateTime createdAt;
-  DateTime updatedAt;
+  int? provinceId;
+  DateTime? createdAt;
+  DateTime? updatedAt;
   dynamic deletedAt;
   dynamic establishmentId;
   dynamic googleUser;
-  String kilometersRadio;
-  int ordersByReview;
+  String? kilometersRadio;
+  int? ordersByReview;
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) => CustomerModel(
     id: json["id"],
-    firstname: json["firstname"],
-    lastname: json["lastname"],
-    document: json["document"],
-    email: json["email"],
+    firstname: json["firstname"] ?? '',
+    lastname: json["lastname"] ?? '',
+    document: json["document"] ?? '',
+    email: json["email"] ?? '',
     mobile: json["mobile"],
     city: json["city"],
     address: json["address"],
     facebookUser: json["facebook_user"],
     provinceId: json["province_id"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
+    createdAt: json["created_at"] != null 
+        ? DateTime.parse(json["created_at"]) 
+        : null,
+    updatedAt: json["updated_at"] != null 
+        ? DateTime.parse(json["updated_at"]) 
+        : null,
     deletedAt: json["deleted_at"],
     googleUser: json["google_user"],
     kilometersRadio: json["kilometers_radio"],
     ordersByReview: json["ordersByReview"],
-    establishmentId: null,
+    establishmentId: json["establishment_id"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -75,8 +79,8 @@ class CustomerModel {
     "address": address,
     "facebook_user": facebookUser,
     "province_id": provinceId,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
     "deleted_at": deletedAt,
     "establishment_id": establishmentId,
     "google_user": googleUser,

@@ -23,7 +23,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: color,
-      type: MaterialType.transparency,
+      //type: MaterialType.transparency,
       child: InkWell(
         onTap: onTap,
         splashColor: Colors.grey.withValues(alpha: 0.3),

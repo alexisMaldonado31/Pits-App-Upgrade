@@ -1,14 +1,28 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
 
 android {
-    namespace = "com.example.pits_app"
+    namespace = "com.pitsapp"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "28.2.13676358"
+
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+            keepDebugSymbols += "**/*.so"
+        }
+
+        doNotStrip += "**/*.so"
+    }
+
+    splits {
+        abi {
+            isEnable = false
+        }
+    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -20,21 +34,40 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.pits_app"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
+        applicationId = "com.pitsapp"
         minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        targetSdk = 35
+        versionCode = 11
+        versionName = "2.0.0"
+    }
+
+    signingConfigs {
+        create("release") {
+            keyAlias = "keyPitsApp"
+            keyPassword = "Pitsadmin2022**"
+            storeFile = file("/home/diegol-linux/keys/key.jks")
+            storePassword = "Pitsadmin2022**"
+        }
+
+        getByName("debug") {
+            keyAlias = "keyPitsApp"
+            keyPassword = "Pitsadmin2022**"
+            storeFile = file("/home/diegol-linux/keys/key.jks")
+            storePassword = "Pitsadmin2022**"
+        }
     }
 
     buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+        debug {
             signingConfig = signingConfigs.getByName("debug")
+        }
+        release {
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = false
+            isShrinkResources = false
+            ndk {
+                debugSymbolLevel = "NONE"
+            }
         }
     }
 }

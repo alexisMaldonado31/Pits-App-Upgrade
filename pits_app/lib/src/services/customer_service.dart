@@ -9,16 +9,11 @@ class CustomerService {
   final prefs = PreferenciasUsuario();
   final headers = {"Content-Type": "application/json"};
 
-  Uri _buildUri(String path) {
-    return Uri.parse(prefs.url).replace(path: path);
-  }
-
   Future<CustomerModel?> getCustomer() async {
-    var customer = CustomerModel.fromJson(json.decode(prefs.customerInfo));
-    final uri = _buildUri('/customer/${customer.id}');
-
-    final res = await http.get(uri, headers: headers);
+    final customer = CustomerModel.fromJson(json.decode(prefs.customerInfo));
+    final uri = Uri.parse('${prefs.url}/customer/${customer.id}');
     try {
+      final res = await http.get(uri, headers: headers);
       return CustomerModel.fromJson(json.decode(res.body));
     } catch (e) {
       return null;
@@ -29,39 +24,52 @@ class CustomerService {
     int customerId,
     CustomerUpdateModel customerModel,
   ) async {
-    final uri = Uri.parse(prefs.url).replace(path: '/customer/$customerId');
-
-    final res = await http.put(
-      uri,
-      body: jsonEncode(customerModel), // requiere toJson()
-      headers: const {'Content-Type': 'application/json'},
-    );
+    final uri = Uri.parse('${prefs.url}/customer/$customerId');
+    print('PUT URL: $uri');
+    print('BODY: ${jsonEncode(customerModel)}');
 
     try {
+      final res = await http.put(
+        uri,
+        body: jsonEncode(customerModel),
+        headers: headers,
+      );
+      print('STATUS: ${res.statusCode}');
+      print('BODY: ${res.body}');
       return CustomerModel.fromJson(jsonDecode(res.body));
     } catch (e) {
+      print('ERROR putCustomer: $e');
       return null;
     }
   }
 
-  Future<CustomerModel?> postRegisterCustomer(
+  Future<CustomerModel> postRegisterCustomer(
     CustomerCreateModel customerModel,
   ) async {
-    final uri = Uri.parse(prefs.url).replace(path: '/customer/register');
-
-    final res = await http.post(
-      uri,
-      body: jsonEncode(customerModel), // requiere toJson()
-      headers: headers, // asegúrate Content-Type: application/json
-    );
+    final uri = Uri.parse('${prefs.url}/customer/register');
 
     try {
-      return CustomerModel.fromJson(jsonDecode(res.body));
-    } catch (e) {
-      if (res.body.toLowerCase() == 'false') {
-        return null;
+      final res = await http.post(
+        uri,
+        body: jsonEncode(customerModel),
+        headers: headers,
+      );
+
+      print('STATUS: ${res.statusCode}');
+      print('BODY: ${res.body}');
+
+      final body = res.body.trim();
+
+      if (body.toLowerCase() == 'false' || res.statusCode != 200) {
+        throw Exception('No se pudo registrar el usuario');
       }
-      return null;
+
+      return CustomerModel.fromJson(jsonDecode(body));
+
+    } on http.ClientException {
+      throw Exception('Sin conexión al servidor');
+    } catch (e) {
+      throw Exception('Error: $e');
     }
   }
 }
