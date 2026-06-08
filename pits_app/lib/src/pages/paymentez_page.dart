@@ -60,11 +60,11 @@ class _PaymentezPageState extends State<PaymentezPage> {
     final body = {
       "locale": "es",
       "order": {
-        "amount": widget.orderAmount,
+        "amount": double.parse(widget.orderAmount.toStringAsFixed(2)),
         "description": "Pitsmotors App Consumos",
-        "vat": widget.orderVat,
+        "vat": double.parse(widget.orderVat.toStringAsFixed(2)),        // 👈
         "dev_reference": devReference,
-        "taxable_amount": widget.orderAmount - widget.orderVat,
+        "taxable_amount": double.parse((widget.orderAmount - widget.orderVat).toStringAsFixed(2)), // 👈
         "tax_percentage": 15,
       },
       "user": {
@@ -76,7 +76,7 @@ class _PaymentezPageState extends State<PaymentezPage> {
         "invalid_card_type_message": "Solo tarjeta de Crédito",
         "style_version": "2",
         "theme": {
-          "logo": "https://pitsmotors.com/img/logo.png",
+          "logo": "https://pitsmotors.com/assets/img/emails/logo.png",
           "primary_color": "#F8C824",
         }
       }

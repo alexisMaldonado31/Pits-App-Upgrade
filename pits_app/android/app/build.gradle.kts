@@ -37,7 +37,7 @@ android {
         applicationId = "com.pitsapp"
         minSdk = flutter.minSdkVersion
         targetSdk = 35
-        versionCode = 11
+        versionCode = 22
         versionName = "2.0.0"
     }
 
