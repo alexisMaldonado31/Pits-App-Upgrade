@@ -12,6 +12,7 @@ import 'package:pits_app/src/pages/my_profile_page.dart';
 import 'package:pits_app/src/pages/vehicles_list_page.dart';
 import 'package:pits_app/src/pages/search_page.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -200,8 +201,14 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         TextButton(
-          onPressed: () {
+          onPressed: () async {
             prefs.customerInfo = '';
+            try {
+              await GoogleSignIn().signOut();
+              // Si aun así no aparece el selector, usa disconnect():
+              // await GoogleSignIn().disconnect();
+            } catch (_) {}
+            if (!mounted) return;
             Navigator.pushReplacementNamed(context, 'welcome');
           },
           child: Text(

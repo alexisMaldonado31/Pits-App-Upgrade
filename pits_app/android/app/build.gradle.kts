@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.pitsapp"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 36
     ndkVersion = "28.2.13676358"
 
     packaging {
@@ -36,9 +36,9 @@ android {
     defaultConfig {
         applicationId = "com.pitsapp"
         minSdk = flutter.minSdkVersion
-        targetSdk = 35
-        versionCode = 22
-        versionName = "2.0.0"
+        targetSdk = 36
+        versionCode = 24
+        versionName = "2.0.1"
     }
 
     signingConfigs {

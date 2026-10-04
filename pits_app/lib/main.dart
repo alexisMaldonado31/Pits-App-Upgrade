@@ -61,8 +61,7 @@ class MyApp extends StatelessWidget {
         const Locale('en', 'US'), // English
         const Locale('es', "ES"),
       ],
-      // initialRoute: prefs.customerInfo == '' ? 'welcome' : 'home',
-      initialRoute: 'welcome',
+      initialRoute: prefs.customerInfo == '' ? 'welcome' : 'home',
       routes: {
         'home': (BuildContext context) => HomePage(),
         'welcome': (BuildContext context) => WelcomePage(),
