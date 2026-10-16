@@ -1,7 +1,7 @@
 name: pits_app
 description: "A new Flutter project."
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ^3.10.8
@@ -14,7 +14,7 @@ dependencies:
   http: ^1.5.0
   google_sign_in: ^6.2.1
   shared_preferences: ^2.5.4
-  font_awesome_flutter: ^10.12.0
+  font_awesome_flutter: ^11.0.0
   url_launcher: ^6.3.2
   flutter_localizations:
     sdk: flutter

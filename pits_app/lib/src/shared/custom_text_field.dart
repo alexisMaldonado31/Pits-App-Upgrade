@@ -167,7 +167,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                               suffix: widget.obscureText
                                   ? InkWell(
                                       onTap: _showPasswordTemporarily,
-                                      child: const Icon(
+                                      child: const FaIcon(
                                         FontAwesomeIcons.eye,
                                         color: Colors.white,
                                       ),

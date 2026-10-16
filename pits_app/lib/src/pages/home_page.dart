@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
       PersistentTabConfig(
         screen: AdvertisementPage(),
         item: ItemConfig(
-          icon: Icon(FontAwesomeIcons.gifts, size: 24),
+          icon: FaIcon(FontAwesomeIcons.gifts, size: 24),
           title: "Promociones",
           activeForegroundColor: activeColor,
           inactiveForegroundColor: Colors.grey,
@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
       PersistentTabConfig(
         screen: MyProfilePage(),
         item: ItemConfig(
-          icon: Icon(FontAwesomeIcons.userLarge, size: 24),
+          icon: FaIcon(FontAwesomeIcons.userLarge, size: 24),
           title: "Mi Perfil",
           activeForegroundColor: activeColor,
           inactiveForegroundColor: Colors.grey,
@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
       PersistentTabConfig(
         screen: SearchPage(),
         item: ItemConfig(
-          icon: Icon(FontAwesomeIcons.magnifyingGlass, size: 24),
+          icon: FaIcon(FontAwesomeIcons.magnifyingGlass, size: 24),
           title: "Buscador",
           activeForegroundColor: activeColor,
           inactiveForegroundColor: Colors.grey,
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
       PersistentTabConfig(
         screen: VehiclesListPage(),
         item: ItemConfig(
-          icon: Icon(FontAwesomeIcons.car, size: 24),
+          icon: FaIcon(FontAwesomeIcons.car, size: 24),
           title: "Mis Autos",
           activeForegroundColor: activeColor,
           inactiveForegroundColor: Colors.grey,
@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
       PersistentTabConfig(
         screen: NewsPage(),
         item: ItemConfig(
-          icon: Icon(FontAwesomeIcons.newspaper, size: 24),
+          icon: FaIcon(FontAwesomeIcons.newspaper, size: 24),
           title: "Pits Live 🔴",
           activeForegroundColor: activeColor,
           inactiveForegroundColor: Colors.grey,
@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           IconButton(
-            icon: Icon(FontAwesomeIcons.rightFromBracket),
+            icon: FaIcon(FontAwesomeIcons.rightFromBracket),
             onPressed: () {
               showDialog(
                 context: context,
@@ -167,7 +167,7 @@ class _HomePageState extends State<HomePage> {
         final uri = Uri.parse('https://wa.me/${prefs.whatsapp}');
         await launchUrl(uri, mode: LaunchMode.externalApplication);
       },
-      child: Icon(FontAwesomeIcons.whatsapp, color: Colors.white),
+      child: FaIcon(FontAwesomeIcons.whatsapp, color: Colors.white),
     );
   }
 

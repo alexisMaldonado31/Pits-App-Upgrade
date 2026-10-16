@@ -79,7 +79,7 @@ class Establishment extends StatelessWidget {
                         ),
                       ),
                       if (establishment.subscriptionName == 'GOLD')
-                        Icon(FontAwesomeIcons.medal, color: Colors.amberAccent, size: 16),
+                        FaIcon(FontAwesomeIcons.medal, color: Colors.amberAccent, size: 16),
                     ],
                   ),
                   Divider(color: Colors.white),

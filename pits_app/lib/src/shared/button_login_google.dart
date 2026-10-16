@@ -67,7 +67,7 @@ class ButtonLoginGoogle extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             SizedBox(width: screenSize.width * 0.1),
-            Icon(
+            FaIcon(
               FontAwesomeIcons.google,
               size: screenSize.height * 0.025,
               color: Colors.white,

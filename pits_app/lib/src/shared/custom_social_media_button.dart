@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pits_app/src/shared/custom_text.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CustomSocialMediaButton extends StatelessWidget {
-  final IconData icon;
+  final FaIconData icon;
   final String nameSocialMedia;
   final Color color;
   final VoidCallback onTap;
@@ -35,7 +36,7 @@ class CustomSocialMediaButton extends StatelessWidget {
                       horizontal: screenSize.width * 0.04),
                   child: Row(
                     children: [
-                      Icon(icon, size: screenSize.height * 0.025),
+                      FaIcon(icon, size: screenSize.height * 0.025),
                       VerticalDivider(
                         thickness: 0.5,
                         width: 20,

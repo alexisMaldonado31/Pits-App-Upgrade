@@ -75,7 +75,7 @@ class MyProfilePage extends StatelessWidget {
     Size screenSize,
     AppConfig config, {
     required String titulo,
-    required IconData icono,
+    required FaIconData icono,
     required VoidCallback onTap,
   }) {
     return InkWell(

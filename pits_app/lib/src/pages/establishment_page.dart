@@ -120,7 +120,7 @@ class _EstablishmentPageState extends State<EstablishmentPage> {
             ),
             if (est.subscriptionName == 'GOLD') ...[
               SizedBox(width: 8),
-              Icon(FontAwesomeIcons.medal, color: Colors.amberAccent),
+              FaIcon(FontAwesomeIcons.medal, color: Colors.amberAccent),
             ],
           ],
         ),
@@ -399,10 +399,10 @@ class _EstablishmentPageState extends State<EstablishmentPage> {
     );
   }
 
-  Widget _socialIcon(IconData icon, String url) {
+  Widget _socialIcon(FaIconData icon, String url) {
     return IconButton(
       onPressed: () => _openUrl(url, url),
-      icon: Icon(icon, color: Colors.white),
+      icon: FaIcon(icon, color: Colors.white),
     );
   }
 }
